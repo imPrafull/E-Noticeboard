@@ -12,6 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { Storage, IonicStorageModule } from '@ionic/storage';
 import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { CreatePostPageModule } from './modals/create-post/create-post.module';
 
 export function jwtOptionsFactory(storage) {
   return {
@@ -37,7 +38,8 @@ export function jwtOptionsFactory(storage) {
         useFactory: jwtOptionsFactory,
         deps: [Storage]
       }
-    })
+    }),
+    CreatePostPageModule,
   ],
   providers: [
     StatusBar,

@@ -30,7 +30,7 @@ export class AppComponent {
 
       this.authService.authenticationState.subscribe(loggedIn => {
         if (loggedIn) {
-          this.router.navigate(['home']);
+          this.router.navigate(['posts']);
         }
         else {
           this.router.navigate(['login']);

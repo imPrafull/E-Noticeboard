@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Create Post</ion-title>
+    <ion-buttons slot="end" >
+      <ion-button (click)="closeModal()" >
+        <ion-icon slot="icon-only" name="close-outline" ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <form [formGroup]="PostForm" (ngSubmit)="createPost()" >
+    <ion-item>
+      <ion-label position="floating" >Title</ion-label>
+      <ion-textarea formControlName="title" ></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating" >Body</ion-label>
+      <ion-textarea autoGrow="true" formControlName="body" ></ion-textarea>
+    </ion-item>
+    <ion-button type="submit" [disabled]="!PostForm.valid" expand="full" >Post</ion-button>
+  </form>
+</ion-content>
