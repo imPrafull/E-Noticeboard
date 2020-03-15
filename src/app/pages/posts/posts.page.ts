@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { CreatePostPage } from 'src/app/modals/create-post/create-post.page';
+import { Post } from 'src/app/models/post.model';
+import { PostService } from 'src/app/services/post.service';
 
 @Component({
   selector: 'app-posts',
@@ -9,20 +11,21 @@ import { CreatePostPage } from 'src/app/modals/create-post/create-post.page';
 })
 export class PostsPage implements OnInit {
 
-  posts = [
-    {
-      title: 'First Post',
-      body: 'This is my first post and i am exciited'
-    },
-    {
-      title: 'Second Post',
-      body: 'This is my second post'
-    }
-  ];
+  posts: Post[] = [];
 
-  constructor(private modalCtrl: ModalController) { }
+  constructor(private modalCtrl: ModalController, private postService: PostService) { }
 
   ngOnInit() {
+    this.postService.postsChanged.subscribe(() => {
+      this.getAllPosts();
+    });
+    this.getAllPosts();
+  }
+
+  private getAllPosts() {
+    this.postService.getPosts().subscribe(posts => {
+      this.posts = posts;
+    });
   }
 
   async createPost() {
