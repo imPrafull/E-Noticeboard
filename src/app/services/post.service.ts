@@ -22,7 +22,12 @@ export class PostService {
   getPosts() {
     return this.http.get<Post[]>(`${this.url}/api/posts`).pipe(
       map(res => {
-        return res['posts'];
+        const post: Post[] = [];
+        res['posts'].forEach(element => {
+          const {createdBy, ...newPost} = element;
+          post.push(Object.assign(newPost, {createdBy: element['createdBy']['email']}));
+        });
+        return post;
       })
     );
   }
