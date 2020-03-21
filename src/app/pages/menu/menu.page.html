@@ -1,0 +1,15 @@
+<ion-split-pane contentId="main-content">
+  <ion-menu contentId="main-content" >
+    <ion-content>
+      <ion-list>
+        <ion-menu-toggle auto-hide="false" *ngFor="let page of pages">
+          <ion-item [routerLink]="page.url" routerLinkActive="active-item" >
+            {{ page.title }}
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-item (click)="logout()" style="cursor: pointer;" >Logout</ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet id="main-content" ></ion-router-outlet>
+</ion-split-pane>
