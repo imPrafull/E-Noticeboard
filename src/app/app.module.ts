@@ -19,7 +19,7 @@ export function jwtOptionsFactory(storage) {
     tokenGetter: () => {
       return storage.get('token');
     },
-    whitelistedDomains: ['localhost:5000']
+    whitelistedDomains: ['localhost:5000', '192.168.0.103:5000']
   };
 }
 
@@ -31,7 +31,10 @@ export function jwtOptionsFactory(storage) {
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
-    IonicStorageModule.forRoot(),
+    IonicStorageModule.forRoot({
+      name: '_myDb',
+      driverOrder: ['localstorage']
+    }),
     JwtModule.forRoot({
       jwtOptionsProvider: {
         provide: JWT_OPTIONS,

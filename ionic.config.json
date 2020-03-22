@@ -1,5 +1,7 @@
 {
   "name": "E-Noticeboard",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
