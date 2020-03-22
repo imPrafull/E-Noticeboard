@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Platform } from '@ionic/angular';
@@ -12,7 +12,8 @@ import { AuthService } from './services/auth.service';
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -23,19 +24,15 @@ export class AppComponent {
     this.initializeApp();
   }
 
+  ngOnInit() {
+    this.authService.autoLogin();
+  }
+
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
-      this.authService.authenticationState.subscribe(loggedIn => {
-        if (loggedIn) {
-          this.router.navigate(['menu','home']);
-        }
-        else {
-          this.router.navigate(['login']);
-        }
-      });
     });
   }
 }
