@@ -4,7 +4,7 @@ import { environment } from '../../environments/environment';
 import { BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { tap, catchError } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
 
@@ -26,12 +26,7 @@ export class AuthService {
   }
 
   register(credentials) {
-    return this.http.post(`${this.url}/api/register`, credentials).pipe(
-      catchError(e => {
-        this.showAlert(e.error.msg);
-        throw new Error(e.msg);
-      })
-    );
+    return this.http.post(`${this.url}/api/register`, credentials);
   }
 
   autoLogin() {
@@ -57,10 +52,6 @@ export class AuthService {
         new Date().getTime();
         this.autoLogout(expirationDuration);
         this.storage.set(TOKEN, res['token']);
-      }),
-      catchError(e => {
-        this.showAlert(e.error.msg);
-        throw new Error(e.error);
       })
     );
   }
@@ -82,16 +73,7 @@ export class AuthService {
   }
 
   getSpecialData() {
-    return this.http.get(`${this.url}/api/special`).pipe(
-        catchError(e => {
-          const status = e.status;
-          if (status === 401) {
-            this.showAlert('You are not authorized to do this');
-            this.logout();
-          }
-          throw new Error(e.msg);
-        })
-    );
+    return this.http.get(`${this.url}/api/special`);
   }
 
   isAuthenticated() {
