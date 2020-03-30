@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" >
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Groups</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-input type="text" placeholder="Group Name" [formControl]="groupName"></ion-input>
+    <ion-button shape="round" slot="end" (click)="createGroup()">
+      <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+    </ion-button>
+  </ion-item>
+  <ion-list *ngIf="groups">
+    <ion-item button (click)="onGroupClick(group._id)" *ngFor="let group of groups">
+      <ion-label>
+        <h2>{{ group.name }}</h2>
+        <p>{{ group.createdBy }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

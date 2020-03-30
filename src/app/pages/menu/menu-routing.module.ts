@@ -18,6 +18,11 @@ const routes: Routes = [
         path: 'posts',
         loadChildren: () => import('../posts/posts.module').then( m => m.PostsPageModule),
         canActivate: [AuthGuardService]
+      },
+      {
+        path: 'groups',
+        loadChildren: () => import('../groups/groups.module').then( m => m.GroupsPageModule),
+        canActivate: [AuthGuardService]
       }
     ]
   },

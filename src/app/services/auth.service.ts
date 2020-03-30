@@ -35,6 +35,7 @@ export class AuthService {
         return;
       }
       this.authenticationState.next(true);
+      this.user = this.helper.decodeToken(token);
       const expirationDuration =
         new Date(this.helper.getTokenExpirationDate(token)).getTime() -
         new Date().getTime();

@@ -19,6 +19,10 @@ export class MenuPage implements OnInit {
     {
       title: 'Posts',
       url: '/menu/posts'
+    },
+    {
+      title: 'Groups',
+      url: '/menu/groups'
     }
   ];
 
