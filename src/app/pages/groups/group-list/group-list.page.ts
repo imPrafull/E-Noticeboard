@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 import { AuthService } from 'src/app/services/auth.service';
 import { GroupsService } from 'src/app/services/groups.service';
@@ -15,7 +16,7 @@ export class GroupListPage implements OnInit {
   
   groups = [];
   groupName = new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(150)]);
-  subscription: any;
+  subscription: Subscription;
 
   constructor(
     private groupsService: GroupsService, private authService: AuthService, private router: Router,

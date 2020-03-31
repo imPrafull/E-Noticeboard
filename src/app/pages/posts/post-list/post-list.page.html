@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" >
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Posts</ion-title>
+  </ion-toolbar>
+</ion-header> 
+
+<ion-content>
+  <ion-list *ngIf="posts" >
+    <ion-item button (click)="onPostClick(post._id)" *ngFor="let post of posts">
+      <ion-label>
+        <h2>{{ post.title }}</h2>
+        <p>{{ post.body }}</p>
+        <p>{{ post.createdBy }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="createPost()" >
+      <ion-icon name="add-outline" size="large" ></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
