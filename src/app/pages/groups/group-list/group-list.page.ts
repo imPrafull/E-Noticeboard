@@ -24,10 +24,10 @@ export class GroupListPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.groupsService.fetchGroups();
     this.subscription = this.groupsService.groupsChanged$.subscribe(groups => {
       this.groups = groups;
     });
-    this.groupsService.fetchGroups();
   }
 
   createGroup() {
