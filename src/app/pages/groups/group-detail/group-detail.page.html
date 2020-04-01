@@ -1,9 +1,16 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>group-detail</ion-title>
+    <ion-title>{{ group.name }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-label>Created By: {{ group.createdBy }}</ion-label>
+  <hr>
+  <ion-title>Members</ion-title>
+  <ion-list *ngIf="group.members">
+    <ion-item *ngFor="let member of group.members">
+      <ion-label>{{ member.email }}</ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>

@@ -17,6 +17,7 @@ export class GroupDetailPage implements OnInit {
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
       this.group = this.groupsService.getGroupById(params['id']);
+      console.log(this.group);
     });
   }
 
