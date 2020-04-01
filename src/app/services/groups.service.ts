@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { map, tap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
+import { createdBy } from '../shared/utilities';
 
 @Injectable({
   providedIn: 'root'
@@ -22,8 +23,7 @@ export class GroupsService {
       map(groups => {
         const groupsRes = [];
         groups['groups'].forEach(group => {
-          const {createdBy, ...newGroup} = group;
-          groupsRes.push(Object.assign(newGroup, {createdBy: group['createdBy']['email']}));
+          groupsRes.push(createdBy(group));
         });
         return groupsRes;
       })
@@ -35,7 +35,7 @@ export class GroupsService {
 
   createGroup(group) {
     this.http.post(`${this.url}/api/groups`, group).subscribe(response => {
-      this.groups.push(response['group']);
+      this.groups.push(createdBy(response['group']));
       this.groupsChanged$.next(this.groups.slice());
     });
   }
