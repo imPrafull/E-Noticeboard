@@ -15,6 +15,7 @@ import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
 
 import { CreatePostPageModule } from './modals/create-post/create-post.module';
 import { ErrorinterceptorService } from './services/errorinterceptor.service';
+import { SharedDirectives } from './directives/shared-directives.module';
 
 export function jwtOptionsFactory(storage) {
   return {
@@ -33,6 +34,7 @@ export function jwtOptionsFactory(storage) {
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
+    SharedDirectives,
     IonicStorageModule.forRoot({
       name: '_myDb',
       driverOrder: ['localstorage']

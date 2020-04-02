@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { CreatePostPage } from 'src/app/modals/create-post/create-post.page';
 import { Post } from 'src/app/models/post.model';
 import { PostService } from 'src/app/services/post.service';
+import { AuthService } from 'src/app/services/auth.service';
  
 @Component({
   selector: 'app-post-list',
@@ -17,7 +18,11 @@ export class PostListPage implements OnInit {
   posts: Post[] = [];
   subscription: Subscription;
 
-  constructor(private modalCtrl: ModalController, private postService: PostService, private router: Router) { }
+  constructor
+  (
+    private modalCtrl: ModalController, private postService: PostService, private router: Router,
+    private authService: AuthService
+  ) { }
 
   ngOnInit() {
     this.postService.fetchPosts();

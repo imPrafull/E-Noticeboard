@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { GroupListPageRoutingModule } from './group-list-routing.module';
+import { SharedDirectives } from '../../../directives/shared-directives.module';
 
 import { GroupListPage } from './group-list.page';
 
@@ -14,6 +15,7 @@ import { GroupListPage } from './group-list.page';
     FormsModule,
     IonicModule,
     ReactiveFormsModule,
+    SharedDirectives,
     GroupListPageRoutingModule
   ],
   declarations: [GroupListPage]
