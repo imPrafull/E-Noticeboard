@@ -24,14 +24,14 @@ export class LoginPage implements OnInit {
 
   onSubmit() {
     this.authService.login(this.credentialsForm.value).subscribe(() => {
-      this.router.navigate(['menu', 'home'], { replaceUrl: true });
+      this.router.navigate(['home'], { replaceUrl: true });
     });
   }
 
   register() {
     this.authService.register(this.credentialsForm.value).subscribe(() => {
       this.authService.login(this.credentialsForm.value).subscribe(() => {
-        this.router.navigate(['menu', 'home'], { replaceUrl: true });
+        this.router.navigate(['home'], { replaceUrl: true });
       });
     });
   }

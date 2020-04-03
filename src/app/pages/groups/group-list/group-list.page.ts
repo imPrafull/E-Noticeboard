@@ -39,7 +39,7 @@ export class GroupListPage implements OnInit {
   }
 
   onGroupClick(groupId) {
-    this.router.navigate(['menu', 'groups', groupId]);
+    this.router.navigate(['groups', groupId]);
   }
 
 }

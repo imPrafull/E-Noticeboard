@@ -39,7 +39,7 @@ export class PostListPage implements OnInit {
   }
 
   onPostClick(postId) {
-    this.router.navigate(['menu', 'posts', postId]);
+    this.router.navigate(['posts', postId]);
   }
 
 }
