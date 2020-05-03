@@ -19,12 +19,18 @@ const routes: Routes = [
         canActivate: [AuthGuardService]
       },
       { 
-        path: ':id', 
+        path: 'group-detail', 
         loadChildren: () => import('../groups/group-detail/group-detail.module').then( m => m.GroupDetailPageModule),
+        canActivate: [AuthGuardService]
+      },
+      {
+        path: 'subgroup-detail',
+        loadChildren: () => import('./subgroup-detail/subgroup-detail.module').then( m => m.SubgroupDetailPageModule),
         canActivate: [AuthGuardService]
       }
     ]
   }
+
 ];
 
 @NgModule({

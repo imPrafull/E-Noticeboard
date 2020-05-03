@@ -8,12 +8,6 @@
 </ion-header>
 
 <ion-content>
-  <ion-item [appHideIfUnauthorized]="authService.user.role" >
-    <ion-input type="text" placeholder="Group Name" [formControl]="groupName"></ion-input>
-    <ion-button shape="round" slot="end" (click)="createGroup()">
-      <ion-icon slot="icon-only" name="add-outline"></ion-icon>
-    </ion-button>
-  </ion-item>
   <ion-list *ngIf="groups">
     <ion-item button (click)="onGroupClick(group._id)" *ngFor="let group of groups">
       <ion-label>

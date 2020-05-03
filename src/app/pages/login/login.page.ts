@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastController } from '@ionic/angular';
+import { ToastController, MenuController } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
@@ -16,7 +16,7 @@ export class LoginPage implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder, private authService: AuthService, private router: Router,
-    private toastController: ToastController
+    private toastController: ToastController, private menuController: MenuController
   ) { }
 
   ngOnInit() {
@@ -24,6 +24,10 @@ export class LoginPage implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
+  }
+
+  ionViewWillEnter() {
+    this.menuController.enable(false);
   }
 
   onSubmit() {
@@ -53,6 +57,10 @@ export class LoginPage implements OnInit {
       duration: 2000
     });
     toast.present();
+  }
+
+  ionViewWillLeave() {
+    this.menuController.enable(true);
   }
 
 }

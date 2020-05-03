@@ -5,12 +5,19 @@
 </ion-header>
 
 <ion-content>
+  <ion-item [appHideIfUnauthorized]="authService.user.role" >
+    <ion-input type="text" placeholder="Group Name" [formControl]="groupName"></ion-input>
+    <ion-button shape="round" slot="end" (click)="createSubgroup()">
+      <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+    </ion-button>
+  </ion-item>
+  <hr>
   <ion-label>Created By: {{ group.createdBy }}</ion-label>
   <hr>
-  <ion-title>Members</ion-title>
-  <ion-list *ngIf="group.members">
-    <ion-item *ngFor="let member of group.members">
-      <ion-label>{{ member.email }}</ion-label>
+  <ion-title>Groups</ion-title>
+  <ion-list *ngIf="group.subgroups">
+    <ion-item (click)="onSubgroupClick(subgroup._id)" *ngFor="let subgroup of group.subgroups">
+      <ion-label>{{ subgroup.name }}</ion-label>
     </ion-item>
   </ion-list>
 </ion-content>

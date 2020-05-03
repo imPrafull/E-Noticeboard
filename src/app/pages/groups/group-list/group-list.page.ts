@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { AuthService } from 'src/app/services/auth.service';
 import { GroupsService } from 'src/app/services/groups.service';
 
 @Component({
@@ -13,33 +11,22 @@ import { GroupsService } from 'src/app/services/groups.service';
 })
 export class GroupListPage implements OnInit {
 
-  
   groups = [];
-  groupName = new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(150)]);
   subscription: Subscription;
 
   constructor(
-    private groupsService: GroupsService, private authService: AuthService, private router: Router,
-    private route: ActivatedRoute
+    private groupsService: GroupsService, private router: Router,
   ) { }
 
   ngOnInit() {
-    this.groupsService.fetchGroups();
-    this.subscription = this.groupsService.groupsChanged$.subscribe(groups => {
+    this.groupsService.fetchGroups().subscribe(groups => {
       this.groups = groups;
-    });
-  }
-
-  createGroup() {
-    const groupBody = {
-      name : this.groupName.value,
-      createdBy: this.authService.user['id']
-    }
-    this.groupsService.createGroup(groupBody);
-  }
+    });    
+  }  
 
   onGroupClick(groupId) {
-    this.router.navigate(['groups', groupId]);
+    this.groupsService.groupSelected$.next({groupId: groupId, subgroupId: ''});
+    this.router.navigate(['groups', 'group-detail']);
   }
 
 }
