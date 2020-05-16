@@ -1,0 +1,14 @@
+<div>
+  <ion-button class="close" fill="outline" (click)="closeModal()">
+    <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+  </ion-button>
+
+  <ion-item>
+    <input type="text" #searchInput>
+    <ion-icon slot="end" name="search-outline"></ion-icon>
+  </ion-item>
+
+  <ion-list *ngFor="let institute of institutes">
+    <ion-item (click)="instituteSelected(institute)">{{ institute.name }}</ion-item>
+  </ion-list>
+</div>
