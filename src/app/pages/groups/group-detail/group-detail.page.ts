@@ -39,7 +39,7 @@ export class GroupDetailPage implements OnInit {
   createSubgroup() {
     const groupBody = {
       id: this.groupId,
-      subgroups: {
+      subgroup: {
         name : this.groupName.value,
         createdBy: this.authService.user['id'],
         members: [ this.authService.user['id'] ]
