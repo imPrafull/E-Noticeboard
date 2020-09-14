@@ -1,22 +1,22 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar color="primary">
     <ion-title>Login</ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
-<ion-content padding>
-  <form [formGroup]="credentialsForm" (ngSubmit)="onSubmit()">
-    <ion-item>
-      <ion-label position="floating" >Email</ion-label>
-      <ion-input type="email" formControlName="email"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label position="floating" >Password</ion-label>
-      <ion-input type="password" formControlName="password"></ion-input>
-    </ion-item>
-
-    <ion-button expand="full" type="submit" [disabled]="!credentialsForm.valid">{{ isLoginMode ? 'Log In' : 'Sign Up' }}</ion-button>
-    <ion-button expand="full" type="button" (click)="switchMode()">Switch to {{ isLoginMode ? 'Sign Up' : 'Log In' }}</ion-button>
-  </form>
+<ion-content>
+  <div class="container">
+    <img src="assets/logo.png">
+    <form [formGroup]="credentialsForm" (ngSubmit)="onSubmit()">
+      <input type="email" formControlName="email" placeholder="Email" />
+      <input type="password" formControlName="password" placeholder="Password" />
+      <button class="action" expand="full" type="submit" [disabled]="!credentialsForm.valid">
+        {{ isLoginMode ? 'Log In' : 'Sign Up' }}
+      </button>
+      <button class="switch" expand="full" type="button" (click)="switchMode()">
+        {{ isLoginMode ? 'Sign Up' : 'Log In' }}
+      </button>
+    </form>
+    <p>Login With Google</p>
+  </div>
 </ion-content>
