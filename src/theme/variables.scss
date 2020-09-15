@@ -80,6 +80,9 @@
   --ion-color-light-contrast-rgb: 0,0,0;
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
+
+  --highlight-color-invalid: transparent !important;
+  --highlight-color-valid: transparent !important;
 }
 
 @media (prefers-color-scheme: dark) {

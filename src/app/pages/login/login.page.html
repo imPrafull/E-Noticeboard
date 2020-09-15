@@ -1,21 +1,17 @@
-<!-- <ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>Login</ion-title>
-  </ion-toolbar>
-</ion-header> -->
-
 <ion-content>
   <div class="container">
     <img src="assets/logo.png">
     <form [formGroup]="credentialsForm" (ngSubmit)="onSubmit()">
       <input type="email" formControlName="email" placeholder="Email" />
+      <p class="error-msg" *ngIf="message && message.email">{{ message.email }}</p>
       <input type="password" formControlName="password" placeholder="Password" />
-      <button class="action" expand="full" type="submit" [disabled]="!credentialsForm.valid">
+      <p class="error-msg" *ngIf="message && message.password">{{ message.password }}</p>
+      <button class="action" expand="full" type="submit" >
         {{ isLoginMode ? 'Log In' : 'Sign Up' }}
       </button>
-      <button class="switch" expand="full" type="button" (click)="switchMode()">
+      <a class="switch" expand="full" type="button" (click)="switchMode()">
         {{ isLoginMode ? 'Sign Up' : 'Log In' }}
-      </button>
+      </a>
     </form>
     <p>Login With Google</p>
   </div>

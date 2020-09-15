@@ -8,6 +8,14 @@ ion-content{
   font-size: .8em;
 }
 
+a {
+  text-decoration: none;
+}
+
+input:focus, button:focus {
+  outline-color: var(--ion-color-secondary);
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -30,6 +38,20 @@ ion-content{
     input {
       margin-top: 2%;
       padding: .4rem 1rem;
+
+      &.ng-pristine{
+        border: none;
+      }
+
+      &.ng-invalid.ng-touched {
+        border: .1rem solid var(--ion-color-danger); 
+      }
+    }
+
+    .error-msg {
+      color: var(--ion-color-danger);
+      font-weight: 500;
+      margin-top: 2%;
     }
 
     .action {
