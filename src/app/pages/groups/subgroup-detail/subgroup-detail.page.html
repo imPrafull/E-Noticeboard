@@ -5,6 +5,13 @@
 </ion-header>
 
 <ion-content>
+  <ion-item [appHideIfUnauthorized]="authService.user.role" >
+    <ion-input type="text" placeholder="Member Email" [formControl]="memberEmail"></ion-input>
+    <ion-button shape="round" slot="end" (click)="addMember()">
+      <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+    </ion-button>
+  </ion-item>
+  <hr>
   <ion-label>Created By: {{ subgroup.createdBy }}</ion-label>
   <hr>
   <ion-title>Members</ion-title>
@@ -13,4 +20,10 @@
       <ion-label>{{ member.email }}</ion-label>
     </ion-item>
   </ion-list>
-</ion-content>
+  <ion-title>Members Not Yet Joined</ion-title>
+  <ion-list *ngIf="subgroup.membersToBe">
+    <ion-item *ngFor="let member of subgroup.membersToBe">
+      <ion-label>{{ member }}</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content> 

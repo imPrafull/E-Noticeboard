@@ -11,9 +11,10 @@ import { createdBy } from '../shared/utilities';
 })
 export class GroupsService {
 
-  groups = []
+  groups = [];
+  groupsChanged$ = new Subject<any[]>();
   subgroupsChanged$ = new Subject<any[]>();
-  groupSelected$ = new BehaviorSubject<{}>({groupId: '', subgroupId: ''});
+  groupSelected$ = new BehaviorSubject<{}>({ groupId: '', subgroupId: '' });
 
   url = environment.url;
 
@@ -27,19 +28,33 @@ export class GroupsService {
           groupsRes.push(createdBy(group));
         });
         return groupsRes;
-      }),
-      tap(groups => {
-        this.groups = groups;
       })
-    );
+    ).subscribe(groups => {
+      this.groups = groups;
+      this.groupsChanged$.next(this.groups);
+    });
   }
 
-  createSubgroup(group) {
-    this.http.post(`${this.url}/api/subgroups`, group).subscribe(response => { 
+  createGroup(group) {
+    this.http.post(`${this.url}/api/groups`, group).subscribe(response => {
+      this.fetchGroups();
+    })
+  }
+
+  createSubgroup(subgroup) {
+    this.http.post(`${this.url}/api/subgroups`, subgroup).subscribe(response => {
       this.groups = this.groups.filter(group => group._id === response['group']['_id'])
         .map(group => createdBy(response['group']));
       this.subgroupsChanged$.next(this.groups.slice());
     });
+  }
+
+  addMember(memberBody) {
+    this.http.put(`${this.url}/api/subgroups`, memberBody).subscribe(response => {
+      this.groups = this.groups.filter(group => group._id === response['group']['_id'])
+        .map(group => createdBy(response['group']));
+      this.subgroupsChanged$.next(this.groups.slice());
+    })
   }
 
   getGroupById(id: string) {
@@ -47,8 +62,8 @@ export class GroupsService {
   }
 
   getsubgroupById(groupId: string, subgroupId: string) {
-    let group = this.groups.find(group => group._id === groupId)
-    return createdBy(group.subgroups.find(subgroup => subgroup._id === subgroupId)); 
+    let group = this.groups.find(group => group._id === groupId);
+    return createdBy(group.subgroups.find(subgroup => subgroup._id === subgroupId));
   }
- 
+
 }

@@ -15,7 +15,7 @@ export class GroupDetailPage implements OnInit {
   group = { subgroups: [] };
   groupId = '';
   groupName = new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(150)]);
-
+ 
   constructor(
     private groupsService: GroupsService, private route: ActivatedRoute, private router: Router,
     private authService: AuthService
