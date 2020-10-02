@@ -9,23 +9,16 @@ import { Storage } from '@ionic/storage';
 })
 export class HomePage implements OnInit {
 
-  data = '';
+  userDetails;
 
   constructor(
     private authService: AuthService,
     private storage: Storage) { }
 
   ngOnInit() {
-  }
-
-  loadSpecialInfo() {
-    this.authService.getSpecialData().subscribe(res => {
-      this.data = res['msg'];
-    });
-  }
-
-  logout() {
-    this.authService.logout();
+      this.authService.getUserDetails().subscribe(userDetails => {
+        this.userDetails = userDetails;
+      });
   }
 
 }

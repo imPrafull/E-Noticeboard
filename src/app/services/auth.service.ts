@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { Platform, AlertController } from '@ionic/angular';
 import { environment } from '../../environments/environment';
 import { BehaviorSubject } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
 
@@ -32,7 +32,7 @@ export class AuthService {
   autoLogin() {
     this.storage.get(TOKEN).then(token => {
       if(!token) {
-        return;
+        return; 
       }
       this.authenticationState.next(true);
       this.user = this.helper.decodeToken(token);
@@ -73,12 +73,21 @@ export class AuthService {
     this.tokenExpirationTimer = null;
   }
 
-  getSpecialData() {
-    return this.http.get(`${this.url}/api/special`);
-  }
-
   isAuthenticated() {
     return this.authenticationState.value;
+  }
+
+  getUserDetails() {
+    let params = new HttpParams();
+    params = params.append('userid', this.user.id);
+    return this.http.get(`${this.url}/api/userDetails`, { params: params })
+      .pipe(
+        map(response => {
+          let userDetails = response['userDetails']
+          this.storage.set('user-details', userDetails)
+          return userDetails;
+        })
+      );
   }
 
   async showAlert(msg) {
