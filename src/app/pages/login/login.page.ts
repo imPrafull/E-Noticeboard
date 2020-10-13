@@ -76,7 +76,6 @@ export class LoginPage implements OnInit {
     }
     else {
       this.authService.register(this.credentialsForm.value).subscribe(response => {
-        console.log('Registered ' + response);
         this.presentToast(response.toString());
       });
     }

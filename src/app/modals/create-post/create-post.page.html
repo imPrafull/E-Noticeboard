@@ -19,6 +19,21 @@
       <ion-label position="floating" >Body</ion-label>
       <ion-textarea autoGrow="true" formControlName="body" ></ion-textarea>
     </ion-item>
-    <ion-button type="submit" [disabled]="!PostForm.valid" expand="full" >Post</ion-button>
+    <input type="radio" value="group" (change)="radioChange($event)" formControlName="shareType" />
+    <label for="group">For College</label>
+    <input type="radio" value="subgroup" (change)="radioChange($event)" formControlName="shareType" />
+    <label for="subgroup">For Class</label>
+    <div class="dropdown">
+      <ion-item>
+        <ion-input type="text" value="{{ (group || subgroup) ? (group ? group.name : subgroup.name + ' - ' + subgroup.college) : (PostForm.value.shareType == 'group' ? 'Select group' : 'Select subgroup') }}" readonly="true"
+          (click)="dropdown()" ></ion-input>
+        <ion-icon class="icon" name="chevron-down-outline" slot="end"></ion-icon>
+      </ion-item>
+      <div *ngIf="openDropdown" class="dropdown-content">
+        <p *ngFor="let item of dropdownList" (click)="itemSelected(item)">{{ item.name }} <span *ngIf="PostForm.value.shareType == 'subgroup'"> - {{ item.college }}</span></p>
+      </div>
+    </div>
+    <ion-button type="submit" expand="full" >Post</ion-button>
   </form>
 </ion-content>
+<!-- [disabled]="!PostForm.valid" -->

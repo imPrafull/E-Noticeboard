@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
@@ -13,7 +13,7 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './post-list.page.html',
   styleUrls: ['./post-list.page.scss'],
 })
-export class PostListPage implements OnInit {
+export class PostListPage {
 
   posts: Post[] = [];
   subscription: Subscription;
@@ -24,11 +24,11 @@ export class PostListPage implements OnInit {
     private authService: AuthService
   ) { }
 
-  ngOnInit() {
-    this.postService.fetchPosts();
+  ionViewWillEnter() {
     this.subscription = this.postService.postsChanged$.subscribe(posts => {
       this.posts = posts;
     });
+    this.postService.fetchPosts();
   }
 
   async createPost() {
@@ -40,6 +40,10 @@ export class PostListPage implements OnInit {
 
   onPostClick(postId) {
     this.router.navigate(['posts', postId]);
+  }
+
+  ionViewDidLeave() {
+    this.subscription.unsubscribe();
   }
 
 }

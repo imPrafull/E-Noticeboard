@@ -2,10 +2,11 @@ import { environment } from '../../environments/environment';
 import { Injectable } from '@angular/core';
 import { Post } from '../models/post.model';
 import { Subject } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { map, tap } from 'rxjs/operators';
 
 import { createdBy } from '../shared/utilities';
+import { Storage } from '@ionic/storage';
  
 @Injectable({
   providedIn: 'root'
@@ -16,15 +17,15 @@ export class PostService {
   posts = []
   postsChanged$ = new Subject<any[]>();
 
-  get postsChanged() {
-    return this.postsChanged$;
-  }
+  constructor(private http: HttpClient, private storage: Storage) { }
 
-  constructor(private http: HttpClient) { }
-
-  fetchPosts() {
-    return this.http.get<Post[]>(`${this.url}/api/posts`).pipe(
-      map(res => {
+  async fetchPosts() {
+    let userDetails = await this.storage.get('user-details');
+    let params = new HttpParams();
+    params = params.append('groupIds', userDetails.groups.join());
+    params = params.append('subgroupIds', userDetails.subgroups.join());
+    return this.http.get<Post[]>(`${this.url}/api/posts`, {params: params}).pipe(
+      map(res => { 
         const posts: Post[] = [];
         res['posts'].forEach(post => {
           posts.push(createdBy(post));

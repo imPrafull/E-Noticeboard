@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PostService } from 'src/app/services/post.service';
 
 @Component({
   selector: 'app-posts',
@@ -7,4 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PostsPage {
 
+  constructor(private postService: PostService) {
+  }
+
+  ionViewWillEnter() {
+    this.postService.fetchPosts();
+  }
 }

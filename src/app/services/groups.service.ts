@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { map, tap } from 'rxjs/operators';
 import { Subject, BehaviorSubject } from 'rxjs';
 
@@ -64,6 +64,22 @@ export class GroupsService {
   getsubgroupById(groupId: string, subgroupId: string) {
     let group = this.groups.find(group => group._id === groupId);
     return createdBy(group.subgroups.find(subgroup => subgroup._id === subgroupId));
+  }
+
+  getGroupsByUserid(userid: string) {
+    let params = new HttpParams();
+    params = params.append('userid', userid);
+    return this.http.get(`${this.url}/api/groupsByUserid`, {params: params}).pipe(
+      map(response => response['groups'])
+    );
+  }
+
+  getsubgroupsByUserid(userid: string) {
+    let params = new HttpParams();
+    params = params.append('userid', userid);
+    return this.http.get(`${this.url}/api/subgroupsByUserid`, {params: params}).pipe(
+      map(response => response['subgroups'])
+    );
   }
 
 }

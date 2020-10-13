@@ -16,9 +16,12 @@ export class HomePage implements OnInit {
     private storage: Storage) { }
 
   ngOnInit() {
-      this.authService.getUserDetails().subscribe(userDetails => {
-        this.userDetails = userDetails;
-      });
+  }
+
+  ionViewWillEnter() {
+    this.authService.getUserDetails().subscribe(userDetails => {
+      this.userDetails = userDetails;
+    });
   }
 
 }
